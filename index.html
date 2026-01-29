@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{TeamName}} — Team Dashboard</title>
+
+  <!-- shared CSS reset for ALL pages in this project.
+       Do not add custom styling here; this is just to normalize browser defaults. -->
+  <link rel="stylesheet" href="reset.css" />
+</head>
+
+<body>
+  <!-- keyboard users can skip the repeated header/nav and jump straight to <main>. -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- page header: logo, team title, and primary navigation. -->
+  <header>
+    <div>
+      <!-- team logo (required alt text because it is meaningful branding). -->
+      <img src="{{TeamLogoURL}}" alt="{{TeamName}} logo" width="64" height="64" />
+      <div>
+        <!-- main page title for this dashboard view. -->
+        <h1>{{TeamName}}</h1>
+        <p>{{SeasonYear}} Cross Country</p>
+      </div>
+    </div>
+
+    <!-- primary site navigation.
+         Update links and URLs as pages are created. -->
+    <nav aria-label="Primary">
+      <ul>
+        <!-- current page is the team dashboard. -->
+        <li><a href="index.html" aria-current="page">Team Dashboard</a></li>
+
+        <!-- template link to an athlete page.
+             can duplicate athlete.html -->
+        <li><a href="athlete.html">Athlete Page</a></li>
+
+        <!-- external link to the team’s official website such as school site or Athletics page -->
+        <li><a href="{{TeamWebsiteURL}}">Team Website</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- main landing spot: everything inside here is unique to this page. -->
+  <main id="main">
+    <!-- TEAM SUMMARY: basic high-level info about the team/season. -->
+    <section aria-labelledby="team-summary">
+      <h2 id="team-summary">Team Summary</h2>
+
+      <!-- description list used for labeled pieces of team data. -->
+      <dl>
+        <div>
+          <dt>Team colors (hex)</dt>
+          <!-- example: #123456, #ABCDEF -->
+          <dd>{{TeamColorsHex}}</dd>
+        </div>
+        <div>
+          <dt>Season year</dt>
+          <dd>{{SeasonYear}}</dd>
+        </div>
+        <div>
+          <dt>Notes</dt>
+          <!-- freeform notes about the season, we can also use goals, context, etc. -->
+          <dd>{{TeamNotes}}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- FILTERS / SEARCH: lets users find athletes.
+         we want to keep label and input connections for accessibility -->
+    <section aria-labelledby="team-controls">
+      <h2 id="team-controls">Find athletes</h2>
+
+      <!-- form is GET - only for solid structure -->
+      <form action="#" method="get">
+        <fieldset>
+          <!-- legend gives the group of controls a name for screen readers. -->
+          <legend>Search and filter</legend>
+
+          <div>
+            <!-- label is explicitly connected to the search input via for/id. -->
+            <label for="athlete-search">Search by athlete name</label>
+            <input
+              type="search"
+              id="athlete-search"
+              name="q"
+              placeholder="Search…"
+              autocomplete="off"
+            />
+          </div>
+
+          <div>
+            <!-- season dropdown where we can start with the current season maybe add more. -->
+            <label for="season-select">Season</label>
+            <select id="season-select" name="season">
+              <option value="{{SeasonYear}}" selected>{{SeasonYear}}</option>
+              <!-- optional additional seasons replace {{SEASON_OPTIONS}} with <option> items. -->
+              {{SEASON_OPTIONS}}
+            </select>
+          </div>
+
+          <!-- submit button to apply search/filter.
+               actual filtering behavior can be added later -->
+          <button type="submit">Apply</button>
+        </fieldset>
+      </form>
+    </section>
+
+    <!-- ATHLETE LIST: overview of all athletes as “cards”.
+         Each card links into more detailed race information. -->
+    <section aria-labelledby="athlete-list">
+      <h2 id="athlete-list">Athletes</h2>
+
+      <p>
+        Select an athlete to view race cards, results, and comments.
+      </p>
+
+      <ul>
+        <!-- REPEATABLE BLOCK: ATHLETE CARD
+             Replace {{ATHLETE_CARD_ITEMS}} with one <li>…</li> per athlete. -->
+        {{ATHLETE_CARD_ITEMS}}
+
+        <!-- example structure for teammates:
+        <li>
+          <article aria-labelledby="athlete-a001">
+            <header>
+              <h3 id="athlete-a001">
+                <!-- link into this athlete’s page -->
+                <a href="athlete.html?athlete=A001">{{AthleteName}}</a>
+              </h3>
+              <p>Grade: {{AthleteGrade}}</p>
+            </header>
+
+            <!-- athlete photo with meaningful alt text. -->
+            <img src="{{AthletePhotoURL}}" alt="Photo of {{AthleteName}}" width="160" height="160" />
+
+            <!-- quick stats for the athlete -->
+            <dl>
+              <div><dt>Season Record (SR)</dt><dd>{{AthleteSR}}</dd></div>
+              <div><dt>Personal Record (PR)</dt><dd>{{AthletePR}}</dd></div>
+            </dl>
+
+            <footer>
+              <!-- internal link to race results view for this athlete. -->
+              <a href="athlete.html?athlete={{AthleteID}}">View race results</a>
+              <!-- external stats/profile page on Athletic.net or similar. -->
+              <a href="{{AthletePageURL}}">Athletic.net profile</a>
+            </footer>
+          </article>
+        </li>
+        -->
+      </ul>
+    </section>
+  </main>
+
+  <!-- global footer for the site, leave this on all pages -->
+  <footer>
+    <p>Generated from requirements spreadsheet data.</p>
+    <p><small>Last updated: {{LastUpdatedDate}}</small></p>
+  </footer>
+</body>
+</html>
