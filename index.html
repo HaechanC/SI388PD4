@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{AthleteName}} — Race Results</title>
+  <title>Garrett Comer — Race Results</title>
 
   <!-- shared CSS reset for ALL pages in this project
        not for adding custom styling this is just to normalize browser defaults -->
@@ -18,22 +18,22 @@
   <header>
     <div>
       <!-- team logo for context -->
-      <img src="{{TeamLogoURL}}" alt="{{TeamName}} logo" width="48" height="48" />
-      <p>{{TeamName}} • Season {{SeasonYear}}</p>
+      <img src="images/ann arbor skyline hs logo.jpg" alt="Ann Arbor Skyline HS" width="96" height="96" />
+      <p>Ann Arbor Skyline HS • Season 2025</p>
     </div>
 
     <!-- main page heading: this site is all about one athlete -->
-    <h1>{{AthleteName}}</h1>
+    <h1>Garrett Comer</h1>
 
     <!-- simple navigation
          this can stay minimal since this is a single-athlete site -->
     <nav aria-label="Primary">
       <ul>
         <!-- current page is the main results view -->
-        <li><a href="index.html" aria-current="page">Race results</a></li>
+        <li><a href="https://www.athletic.net/athlete/21615274/cross-country/" aria-current="page">Race results</a></li>
 
         <!-- external stats/profile page (e.g., Athletic.net) -->
-        <li><a href="{{AthletePageURL}}">Athletic.net profile</a></li>
+        <li><a href="https://www.athletic.net/profile/21615274/feed">Athletic.net profile</a></li>
       </ul>
     </nav>
   </header>
@@ -49,17 +49,17 @@
         <h3 id="athlete-profile">Athlete profile</h3>
 
         <!-- athlete photo or placeholder -->
-        <img src="{{AthletePhotoURL}}" alt="Photo of {{AthleteName}}" width="180" height="180" />
+        <img src="images/Cover Photo.jpg" alt=" Photo of Garrett Comer" width="180" height="200" />
 
         <!-- key stats: these stay visible as context while scrolling race data -->
         <dl>
-          <div><dt>Grade</dt><dd>{{AthleteGrade}}</dd></div>
-          <div><dt>Season Record (SR)</dt><dd>{{AthleteSR}}</dd></div>
-          <div><dt>Personal Record (PR)</dt><dd>{{AthletePR}}</dd></div>
+          <div><dt>Grade </dt><dd> 11 </dd></div>
+          <div><dt>Season Record (SR 5000m)</dt><dd>16:43.8</dd></div>
+          <div><dt>Personal Record (PR 5000m)</dt><dd>16:43.8</dd></div>
         </dl>
 
         <p>
-          <a href="{{AthletePageURL}}">View athlete page</a>
+          <a href="https://www.athletic.net/athlete/21615274/cross-country/">View athlete page</a>
         </p>
 
         <!-- progressive disclosure for extra bio/context -->
@@ -94,7 +94,9 @@
               <label for="race-filter">Filter</label>
               <select id="race-filter" name="race_filter">
                 <option value="all" selected>All races</option>
-                <option value="season">{{SeasonYear}}</option>
+                <option value="season">2025</option>
+                <option value="season">2024</option>
+                <option value="season">2023</option>
                 <!-- optional: specific race filters (e.g., “Conference”, “Regionals”) -->
                 {{RACE_FILTER_OPTIONS}}
               </select>
