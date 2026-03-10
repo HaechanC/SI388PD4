@@ -169,7 +169,7 @@ section[aria-labelledby="race-cards"] article > p > a:active {
   top: -100%;
   left: var(--sp-4);
   background: var(--color-accent);
-  color: #000;
+  color: #ffffff;
   font-weight: 600;
   padding: var(--sp-2) var(--sp-6);
   border-radius: 0 0 8px 8px;
