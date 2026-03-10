@@ -17,6 +17,9 @@
 
   <!-- page header for athlete, season context and simple navigation -->
   <header>
+
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+
     <div>
       <!-- team logo for context -->
       <img src="images/ann arbor skyline hs logo.jpg" alt="School Title" width="96" height="96" />
@@ -1150,6 +1153,24 @@
     <p>Generated from requirements spreadsheet data.</p>
     <p><small>Last updated: {{LastUpdatedDate}}</small></p>
   </footer>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  // Remember preference across page loads
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark');
+    btn.textContent = '☀️';
+  }
+
+  btn.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    const isDark = body.classList.contains('dark');
+    btn.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+</script>
 </body>
 </html>
 
