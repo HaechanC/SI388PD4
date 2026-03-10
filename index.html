@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css">
   <title>Garrett Comer — Race Results</title>
 
   <!-- shared CSS reset for ALL pages in this project
@@ -18,7 +19,7 @@
   <header>
     <div>
       <!-- team logo for context -->
-      <img src="images/ann arbor skyline hs logo.jpg" alt="Ann Arbor Skyline HS" width="96" height="96" />
+      <img src="images/ann arbor skyline hs logo.jpg" alt="School Title" width="96" height="96" />
       <p>Ann Arbor Skyline HS • Season 2025</p>
     </div>
 
@@ -40,7 +41,7 @@
 
   <!-- main landmark: two-column concept on large screens, stacked on mobile -->
   <main id="main">
-    <section aria-labelledby="results-overview">
+    <div class="results-grid">
       <h2 id="results-overview">Results overview</h2>
 
       <!-- athlete profile panel
@@ -1004,15 +1005,14 @@
               <img src="images/no-photo-available.jpg" alt="No photo available" width="320" height="180" loading="lazy" />
           
               <dl>
-                
                 <dt>Overall place</dt>
                 <dd>97</dd>
                 
                 <dt>Grade</dt>
-                <dd>9</dd></div>
+                <dd>9</dd>
                 
                 <dt>Time</dt>
-                <dd>19:22.2</dd></div>
+                <dd>19:22.2</dd>
               </dl>
           
               <p>
@@ -1107,54 +1107,6 @@
                 <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
               </details>
             </article>
-          </li>
-
-              <img src="{{RacePhotoURL}}" alt="Race photo from {{RaceName}}" width="320" height="180" loading="lazy" />
-
-              <dl>
-                <dt>Overall place</dt>
-                <dd>{{ResultPlace}}</dd>
-                
-                <dt>Time</dt>
-                <dd>{{ResultTime}}</dd>
-              </dl>
-
-              <p><strong>Coach note:</strong> {{CoachNote}}</p>
-
-              <!-- “More” section for extra details and links -->
-              <details>
-                <summary>More details</summary>
-
-                <dl>
-                  <dt>Race ID</dt>
-                  <dd>{{RaceID}}</dd>
-                  
-                  <dt>Athlete ID</dt>
-                  <dd>{{AthleteID}}</dd>
-                  
-                  <dt>Team place</dt>
-                  <dd>{{RaceTeamPlace}}</dd>
-                </dl>
-
-                <p>{{RaceTeamComments}}</p>
-
-                <ul>
-                  <li><a href="{{RaceOfficialResultsURL}}">Official results</a></li>
-                  <li><a href="{{RaceGalleryLink}}">Race gallery</a></li>
-                </ul>
-              </details>
-
-              <footer>
-                <!-- conceptual hook to open comments panel below
-                     python/javascript can later scroll/focus here as an option -->
-                <a href="#comments-panel" aria-describedby="comments-help">Open comments</a>
-                <span id="comments-help" hidden>
-                  Opens a comments section for this athlete.
-                </span>
-              </footer>
-            </article>
-          </li>
-          -->
         </ol>
       </section>
 

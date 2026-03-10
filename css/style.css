@@ -1,0 +1,639 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* Light mode — default, would these variables that help with toggling dark mode count as a technique not seen in class? */
+:root {
+  --color-bg:          #f4f5f8;
+  --color-surface:     #ffffff;
+  --color-surface-2:   #eef0f6;
+  --color-border:      #c8cfe0;
+  --color-accent:      #994f00;   
+  --color-accent-button: #f4f5f8;
+  --color-accent-glow: rgba(153,79,0,.12);
+  --color-text:        #0e1117;
+  --color-text-muted:  #3a3f52;   
+  --color-pr:          #145228;   
+  --color-link:        #1a3fa3;
+  --shadow-card:       0 2px 12px rgba(0,0,0,.08);
+  --shadow-glow:       0 0 20px rgba(184,106,0,.15);
+  --font-display: 'Bebas Neue', 'Impact', condensed, sans-serif;
+  --font-body:    'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Mono', 'Courier New', monospace;
+  --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
+  --sp-6: 1.5rem;  --sp-8: 2rem;   --sp-12: 3rem;
+  --radius-sm: 4px; --radius: 8px; --radius-lg: 16px;
+  --ease: cubic-bezier(.4,0,.2,1);
+  --dur-fast: 160ms; --dur-normal: 280ms; --dur-slow: 500ms;
+}
+
+/* Dark mode — reacts to system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:          #0d0f14;
+    --color-surface:     #161a24;
+    --color-surface-2:   #1e2330;
+    --color-border:      #2a3045;
+    --color-accent:      #f5a623;
+    --color-accent-button: #f5a623;
+    --color-accent-glow: rgba(245,166,35,.18);
+    --color-text:        #eceef5;
+    --color-text-muted:  #b0b8d0;
+    --color-pr:          #4ade80;
+    --color-link:        #93c5fd;
+    --shadow-card:       0 2px 16px rgba(0,0,0,.5);
+    --shadow-glow:       0 0 24px rgba(245,166,35,.25);
+  }
+}
+
+
+/* ── BASE ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: var(--radius-lg);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,166,35,.07), transparent);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--sp-4);
+  line-height: 1.6;
+  margin: 0;
+  min-height: 100dvh;
+}
+
+/* Decorative lane-stripe bar pinned to the top */
+body::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--color-accent) 0 40px, transparent 40px 52px);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+}
+
+img { width: 100%; height: auto; display: block; }
+
+h1, h2, h3, h4 { line-height: 1.15; margin: 0 0 var(--sp-4); }
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+
+
+/* ── SHARED CARD SURFACE ─────────────────────────────────── */
+/* The profile aside, search panel, and comments panel all share
+   the same card treatment — defined once here. */
+aside[aria-labelledby="athlete-profile"],
+section[aria-labelledby="race-controls"],
+#comments-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-card);
+}
+
+/* ── SHARED PANEL HEADINGS (h3) ──────────────────────────── */
+/* All four panel h3s share display font, uppercase, accent color. */
+aside[aria-labelledby="athlete-profile"] h3,
+section[aria-labelledby="race-controls"] h3,
+section[aria-labelledby="race-cards"] h3,
+#comments-panel h3 {
+  font-family: var(--font-display);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--sp-4);
+}
+
+aside[aria-labelledby="athlete-profile"] h3,
+section[aria-labelledby="race-cards"] h3 { font-size: 1.4rem; }
+
+section[aria-labelledby="race-controls"] h3,
+#comments-panel h3 { font-size: 1.25rem; }
+
+/* ── SHARED PILL BUTTON ──────────────────────────────────── */
+/* Used for the "View athlete page" CTA and each "Meet Result" link. */
+aside > p > a,
+section[aria-labelledby="race-cards"] article > p > a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  text-decoration: none;
+  margin-bottom: var(--sp-4);
+  transition: background var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease);
+}
+
+aside > p > a:active,
+section[aria-labelledby="race-cards"] article > p > a:active {
+  background: var(--color-accent);
+  color: #000;
+  text-decoration: none;
+}
+
+/* ── SKIP LINK ───────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--sp-4);
+  background: var(--color-accent);
+  color: #000;
+  font-weight: 600;
+  padding: var(--sp-2) var(--sp-6);
+  border-radius: 0 0 8px 8px;
+  z-index: 9999;
+  transition: top var(--dur-fast);
+}
+.skip-link:focus { top: 0; }
+
+/* ── HEADER, sticky for number 4───────────────────────────────── */
+header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  /* clamp() used for mobile-first */
+  padding: clamp(var(--sp-4), 3vw, var(--sp-6)) clamp(var(--sp-4), 5vw, var(--sp-12));
+  padding-top: calc(clamp(var(--sp-4), 3vw, var(--sp-6)) + 4px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  position: sticky; 
+  top: 0;
+  z-index: 500;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+header > div { display: flex; align-items: center; gap: var(--sp-3); }
+
+header > div img {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+}
+
+
+header > div p {
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+  color: var(--color-text-muted);
+  margin: 0;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 10vw, 4.5rem);
+  letter-spacing: .04em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+  animation: slide-right var(--dur-slow) var(--ease) 120ms both;
+}
+
+@keyframes slide-right {
+  from { transform: translateX(-24px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+header nav ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: var(--sp-2);
+}
+
+header nav a {
+  display: inline-block;
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: border-color var(--dur-fast) var(--ease),
+              color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+
+header nav a:active,
+header nav a[aria-current="page"] {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-glow);
+  text-decoration: none;
+}
+
+/* ── MAIN LAYOUT ─────────────────────────────────────────── */
+main { padding: var(--sp-6) var(--sp-4); margin: 0 auto; }
+
+/* Fluid 1→3 column grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 6vw, 3rem);
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--color-text);
+  padding-bottom: var(--sp-3);
+  border-bottom: 2px solid var(--color-border);
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 60px; height: 2px;
+  background: var(--color-accent);
+}
+
+
+/* ── 10. ATHLETE PROFILE ASIDE ──────────────────────────────── */
+aside[aria-labelledby="athlete-profile"] {
+  animation: fade-up var(--dur-slow) var(--ease) 200ms both;
+}
+
+@keyframes fade-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* This is for number 8: Image Optimization */
+aside[aria-labelledby="athlete-profile"] > img {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-glow);
+  margin: 0 auto var(--sp-6);
+}
+
+/* Profile dl — 2-column: label | value */
+aside dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+  margin: 0 0 var(--sp-4);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* Shared padding + background for both dt and dd */
+aside dl dt,
+aside dl dd {
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-bg);
+  font-size: 0.875rem;
+}
+
+aside dl dt {
+  color: var(--color-text-muted);
+  font-weight: 400;
+  border-left: 3px solid var(--color-border);
+}
+
+aside dl dd {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-pr);
+  margin: 0;
+  text-align: right;
+}
+
+aside dl dd:last-child,
+aside dl dt:last-of-type { border-bottom: none; }
+
+/* ── Styles the arrow for the collapsible section of athlete details────────────────── */
+details { margin-top: var(--sp-4); }
+
+details summary {
+  cursor: pointer;
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase;
+  color: var(--color-text-muted);
+  user-select: none; list-style: none;
+  display: flex; align-items: center; gap: var(--sp-2);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+details summary::before {
+  content: '▶';
+  font-size: 0.6rem;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+details[open] summary::before { transform: rotate(90deg); }
+
+details > p {
+  margin-top: var(--sp-3);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  padding: var(--sp-3);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-sm);
+}
+
+/* ── SEARCH & FILTER ────────────────────────────────────── */
+fieldset {
+  border: none; padding: 0; margin: 0;
+  display: flex; flex-wrap: wrap;
+  gap: var(--sp-4); align-items: flex-end;
+}
+
+fieldset > div { flex: 1 1 160px; }
+
+legend {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+}
+
+label {
+  display: block;
+  font-size: var(--sp-3); font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--sp-1);
+}
+
+/* Shared styles for both form inputs */
+input[type="search"],
+select {
+  width: 100%;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+
+input[type="search"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-glow);
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a8b0c8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-4) center;
+  padding-right: var(--sp-8);
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background: var(--color-accent-button);
+  color: #000;
+  font-family: var(--font-body);
+  font-size: 0.875rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: var(--sp-3) var(--sp-6);
+  border: none; border-radius: var(--radius);
+  cursor: pointer; flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+
+
+
+/* ── RACE CARDS ─────────────────────────────────────────── */
+section[aria-labelledby="race-cards"] ol {
+  list-style: none; padding: 0; margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-4);
+  counter-reset: race-counter;
+  isolation: isolate;
+}
+
+section[aria-labelledby="race-cards"] li { counter-increment: race-counter; }
+
+section[aria-labelledby="race-cards"] article {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--dur-normal) var(--ease),
+              box-shadow var(--dur-normal) var(--ease),
+              border-color var(--dur-normal) var(--ease);
+}
+
+/*A couple of these, but these are for number 5 hover effects, where when the button*/
+/*is clicked, the button will light up*/
+section[aria-labelledby="race-cards"] article:active { 
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,.5), var(--shadow-glow);
+  border-color: var(--color-accent);
+}
+
+/* Decorative #N badge */
+section[aria-labelledby="race-cards"] article::before {
+  content: '#' counter(race-counter);
+  position: absolute;
+  top: var(--sp-4); right: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: .1em;
+  color: rgba(160,168,192,0.4);
+}
+
+section[aria-labelledby="race-cards"] article > header { margin-bottom: var(--sp-4); }
+
+section[aria-labelledby="race-cards"] article > header h4 {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: var(--sp-1);
+}
+
+section[aria-labelledby="race-cards"] article > header p {
+  font-size: 0.8rem; color: var(--color-text-muted); margin: 0;
+}
+
+section[aria-labelledby="race-cards"] article > header time { font-family: var(--font-mono); }
+
+section[aria-labelledby="race-cards"] article img {
+  border-radius: var(--radius);
+  margin-bottom: var(--sp-4);
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+@keyframes card-enter { /*animation for the race cards, the cards are loaded in a staggered manner*/
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+section[aria-labelledby="race-cards"] li {
+  animation: card-enter var(--dur-normal) var(--ease) both;
+}
+
+/* Stagger each card by 60ms using nth-child */
+section[aria-labelledby="race-cards"] li:nth-child(1)  { animation-delay: 0ms; }
+section[aria-labelledby="race-cards"] li:nth-child(2)  { animation-delay: 60ms; }
+section[aria-labelledby="race-cards"] li:nth-child(3)  { animation-delay: 120ms; }
+section[aria-labelledby="race-cards"] li:nth-child(4)  { animation-delay: 180ms; }
+section[aria-labelledby="race-cards"] li:nth-child(5)  { animation-delay: 240ms; }
+section[aria-labelledby="race-cards"] li:nth-child(6)  { animation-delay: 300ms; }
+section[aria-labelledby="race-cards"] li:nth-child(n+7) { animation-delay: 360ms; }
+
+/* Stats dl — 3-column tile layout (Overall / Grade / Time) */
+section[aria-labelledby="race-cards"] dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+
+section[aria-labelledby="race-cards"] dl dt {
+  grid-row: 1;
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-sm) 4px 0 0;
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+  padding: var(--sp-2) var(--sp-2) 0;
+}
+
+section[aria-labelledby="race-cards"] dl dd {
+  grid-row: 2;
+  font-family: var(--font-mono);
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--color-accent);
+  margin: 0;
+  background: var(--color-surface-2);
+  border-radius: 0 0 4px 4px;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  padding: 0 var(--sp-2) var(--sp-2);
+  text-align: center;
+}
+
+/* Nested details — race gallery placeholder */
+section[aria-labelledby="race-cards"] details details {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3);
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--color-border);
+}
+
+section[aria-labelledby="race-cards"] details details summary {
+  font-size: var(--sp-3);
+  color: var(--color-link);
+}
+
+/* ── COMMENTS PANEL ─────────────────────────────────────── */
+#comments-panel > p {
+  font-size: 0.875rem; color: var(--color-text-muted);
+  margin-bottom: var(--sp-4);
+}
+
+#comments-panel ul {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: var(--sp-3);
+}
+
+#comments-panel article {
+  background: var(--color-surface-2);
+  border-radius: var(--radius);
+  padding: var(--sp-4);
+  border-left: 3px solid var(--color-border);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+#comments-panel article:active { border-left-color: var(--color-accent); }
+
+#comments-panel article header h4 {
+  font-size: 0.9rem; font-weight: 600;
+  color: var(--color-text); margin-bottom: var(--sp-1);
+}
+
+#comments-panel article header time {
+  font-family: var(--font-mono);
+  font-size: var(--sp-3); color: var(--color-text-muted);
+}
+
+#comments-panel article p {
+  font-size: 0.875rem; color: var(--color-text-muted);
+  margin: var(--sp-2) 0 0;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: var(--sp-8) var(--sp-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);   /* was text-faint — raised for WCAG AA */
+  font-size: 0.8rem;
+}
+
+footer p { margin: 0 0 var(--sp-1); }
+
+/* ── FOCUS, SCROLLBAR ───────────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 99px; }
+
+/* ── REDUCED MOTION ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  body::before { background: var(--color-accent); }
+}
+
+/* ── PRINT ──────────────────────────────────────────────── */
+@media print {
+  body { background: #fff; color: #000; }
+  .skip-link { display: none; }
+  aside[aria-labelledby="athlete-profile"],
+  #comments-panel { position: static; }
+}
