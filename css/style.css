@@ -599,6 +599,85 @@ section[aria-labelledby="race-cards"] dl dd {
   text-align: center;
 }
 
+/* ============================================================
+   RACE FILTERS (year dropdown + name search)
+   Both controls sit in a shared .race-filters row. Each filter
+   is a .year-filter or .name-filter wrapper containing a label
+   and its input. The two filters work together — a card must
+   pass both to remain visible.
+   ============================================================ */
+ 
+/* Outer row: wraps both filter groups side by side.
+   flex-wrap lets them stack on very narrow screens. */
+.race-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+  align-items: flex-end;
+}
+ 
+/* Each filter group: label stacked above its input */
+.year-filter,
+.name-filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+ 
+/* Name search grows to fill remaining space so the
+   year dropdown stays compact and the search is wider */
+.name-filter { flex: 1 1 160px; }
+ 
+/* Labels: same small-caps style used elsewhere */
+.year-filter label,
+.name-filter label {
+  font-size: var(--sp-3);
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+ 
+/* Shared input appearance for both controls */
+.year-filter select,
+.name-filter input[type="search"] {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--sp-4);
+  padding: var(--sp-2) var(--sp-3);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color var(--dur-fast) var(--ease),
+              box-shadow var(--dur-fast) var(--ease);
+}
+ 
+/* Custom chevron on the select only */
+.year-filter select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a8b0c8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-3) center;
+  padding-right: var(--sp-8);
+  cursor: pointer;
+}
+ 
+/* Shared focus ring for both controls */
+.year-filter select:focus,
+.name-filter input[type="search"]:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-glow);
+}
+ 
+/* Hides a race card li when JS toggles this class on it */
+.hidden {
+  display: none;
+}
+
 /* 
    FOOTER
    Simple centred footer. color: --color-text-muted was chosen

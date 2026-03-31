@@ -78,6 +78,22 @@
       <section aria-labelledby="race-cards">
         <h3 id="race-cards">Race cards</h3>
 
+        <div class="race-filters">
+          <div class="year-filter">
+            <label for="year-select">Year</label>
+            <select id="year-select">
+              <option value="all">All years</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+            </select>
+          </div>
+          <div class="name-filter">
+            <label for="name-search">Race name</label>
+            <input type="search" id="name-search" placeholder="e.g. Portage…" />
+          </div>
+        </div>
+
         <!-- ordered list because race order matters-->
         <ol>
           <!-- REPEATABLE BLOCK: RACE CARD
@@ -796,11 +812,41 @@
 
   <!--Javascript element, this adds an event listener and it checks to see if the button has been clicked-->
   <script>
+    /* ── Theme toggle ── */
     const btn = document.getElementById('theme-toggle');
     btn.addEventListener('click', () => {
       document.body.classList.toggle('dark');
       btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
     });
+ 
+    /* ── Race filters (year + name) ──
+       Both filters run together every time either one changes.
+       A card is visible only when it passes BOTH checks:
+       - its year matches the selected year (or "all" is chosen)
+       - its race name contains the search string (case-insensitive) */
+    const yearSelect = document.getElementById('year-select');
+    const nameSearch = document.getElementById('name-search');
+    const raceItems  = document.querySelectorAll('section[aria-labelledby="race-cards"] ol > li');
+ 
+    function applyFilters() {
+      const selectedYear = yearSelect.value;
+      const nameQuery    = nameSearch.value.trim().toLowerCase();
+ 
+      raceItems.forEach(li => {
+        const time      = li.querySelector('time');
+        const year      = time ? time.getAttribute('datetime').slice(0, 4) : null;
+        const heading   = li.querySelector('h4');
+        const raceName  = heading ? heading.textContent.toLowerCase() : '';
+ 
+        const yearMatch = selectedYear === 'all' || year === selectedYear;
+        const nameMatch = raceName.includes(nameQuery);
+ 
+        li.classList.toggle('hidden', !(yearMatch && nameMatch));
+      });
+    }
+ 
+    yearSelect.addEventListener('change', applyFilters);
+    nameSearch.addEventListener('input', applyFilters);
   </script>
 </body>
 </html>
