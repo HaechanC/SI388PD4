@@ -1,0 +1,151 @@
+/* ============================================================
+   TABLET  >= 700px
+   ============================================================ */
+@media (min-width: 700px) {
+
+  /* Header: everything fits in one row */
+  header {
+    flex-wrap: nowrap;
+  }
+
+  /* Slightly larger logo */
+  header > div img {
+    width: 52px;
+    height: 52px;
+  }
+
+  /* More breathing room on either side of main */
+  main {
+    padding: var(--sp-8);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Race cards: two columns instead of one */
+  section[aria-labelledby="race-cards"] ol {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Search/filter row: inputs sit side by side, no wrapping */
+  fieldset {
+    flex-wrap: nowrap;
+  }
+
+  /* Enable hover states for pointer (mouse) devices only —
+     avoids sticky hover on touchscreens */
+  @media (hover: hover) {
+    header nav a:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      background: var(--color-accent-glow);
+      text-decoration: none;
+    }
+
+    aside > p > a:hover,
+    section[aria-labelledby="race-cards"] article > p > a:hover {
+      background: var(--color-accent);
+      color: #000;
+    }
+
+    section[aria-labelledby="race-cards"] article:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, .18), var(--shadow-glow);
+      border-color: var(--color-accent);
+    }
+
+    #comments-panel article:hover {
+      border-left-color: var(--color-accent);
+    }
+
+    #theme-toggle:hover {
+      border-color: var(--color-accent);
+    }
+  }
+}
+
+
+/* ============================================================
+   DESKTOP  >= 1100px
+   Three-panel sticky layout:
+     [Athlete profile] | [Controls + Cards] | [Comments]
+   ============================================================ */
+@media (min-width: 1100px) {
+
+  main {
+    /* min() keeps padding from pushing content off-screen on smaller desktops */
+    padding: var(--sp-8) min(var(--sp-12), 2vw);
+  }
+
+  .results-grid {
+    grid-template-columns: minmax(180px, 220px) 1fr;
+    column-gap: var(--sp-6);
+    grid-template-areas:
+      "overview  overview"
+      "profile   controls"
+      "profile   cards";
+  }
+
+  /* Assign each panel to its named area */
+  .results-grid > h2                                        { grid-area: overview; }
+  .results-grid > aside[aria-labelledby="athlete-profile"]  { grid-area: profile; }
+  .results-grid > section[aria-labelledby="race-controls"]  { grid-area: controls; }
+  .results-grid > section[aria-labelledby="race-cards"]     { grid-area: cards; }
+
+  /* Athlete profile: stick to the left so stats stay visible while scrolling cards */
+  .results-grid > aside[aria-labelledby="athlete-profile"] {
+    position: sticky;
+    top: calc(64px + var(--sp-4));
+    max-height: calc(100vh - 88px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  /* Bigger athlete avatar on desktop */
+  aside[aria-labelledby="athlete-profile"] > img {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+
+/* ============================================================
+   WIDE  >= 1440px
+   ============================================================ */
+@media (min-width: 1440px) {
+
+  .results-grid {
+    grid-template-columns: 300px 1fr 320px;
+    column-gap: var(--sp-12);
+  }
+
+  section[aria-labelledby="race-cards"] ol {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  aside[aria-labelledby="athlete-profile"] > img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+
+/* ============================================================
+   PRINT  (desktop: flatten the three columns back to single)
+   ============================================================ */
+@media print {
+  .results-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "overview"
+      "profile"
+      "controls"
+      "cards"
+      "comments" !important;
+  }
+
+  aside[aria-labelledby="athlete-profile"],
+  aside#comments-panel {
+    position: static !important;
+    max-height: none !important;
+  }
+}

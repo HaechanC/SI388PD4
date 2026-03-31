@@ -25,7 +25,7 @@
   --dur-fast: 160ms; --dur-normal: 280ms; --dur-slow: 500ms;
 }
 
-/* Dark mode — reacts to user defined color preference */
+/* Dark mode, changes when button is pushed */
 body.dark {
   --color-bg:          #0d0f14;
   --color-surface:     #161a24;
@@ -57,7 +57,7 @@ body.dark {
 
 
 
-/* ── BASE ────────────────────────────────────────────────── */
+/* BASE  */
 *, *::before, *::after { box-sizing: border-box; }
 
 /* ── for number 1: base font size set in rem,
@@ -103,7 +103,7 @@ a {
 }
 
 
-/* ── SHARED CARD SURFACE ─────────────────────────────────── */
+/*SHARED CARD SURFACE */
 /* The profile aside, search panel, and comments panel all share
    the same card treatment — defined once here. */
 aside[aria-labelledby="athlete-profile"],
@@ -116,7 +116,7 @@ section[aria-labelledby="race-controls"],
   box-shadow: var(--shadow-card);
 }
 
-/* ── SHARED PANEL HEADINGS (h3) ──────────────────────────── */
+/* SHARED PANEL HEADINGS (h3) */
 /* All four panel h3s share display font, uppercase, accent color. */
 aside[aria-labelledby="athlete-profile"] h3,
 section[aria-labelledby="race-controls"] h3,
@@ -135,7 +135,7 @@ section[aria-labelledby="race-cards"] h3 { font-size: 1.4rem; }
 section[aria-labelledby="race-controls"] h3,
 #comments-panel h3 { font-size: 1.25rem; }
 
-/* ── SHARED PILL BUTTON ──────────────────────────────────── */
+/* SHARED PILL BUTTON*/
 /* Used for the "View athlete page" CTA and each "Meet Result" link. */
 aside > p > a,
 section[aria-labelledby="race-cards"] article > p > a {
@@ -163,7 +163,7 @@ section[aria-labelledby="race-cards"] article > p > a:active {
   text-decoration: none;
 }
 
-/* ── SKIP LINK ───────────────────────────────────────────── */
+/* SKIP LINK */
 .skip-link {
   position: absolute;
   top: -100%;
@@ -178,7 +178,7 @@ section[aria-labelledby="race-cards"] article > p > a:active {
 }
 .skip-link:focus { top: 0; }
 
-/* ── HEADER, sticky for number 4───────────────────────────────── */
+/* HEADER, sticky for number 4*/
 header {
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
@@ -259,7 +259,7 @@ header nav a[aria-current="page"] {
   text-decoration: none;
 }
 
-/* ── MAIN LAYOUT ─────────────────────────────────────────── */
+/* MAIN LAYOUT */
 main { padding: var(--sp-6) var(--sp-4); margin: 0 auto; }
 
 /* column grid */
@@ -289,8 +289,8 @@ h2::after {
 }
 
 
-/* ── athlete profile, slides it up during page load──────────────────────────────── */
-aside[aria-labelledby="athlete-profile"] {
+/* athlete profile, slides it up during page load */
+aside[aria-labelledby="athlete-profile"] { 
   animation: fade-up var(--dur-slow) var(--ease) 200ms both;
 }
 
@@ -345,7 +345,7 @@ aside dl dd {
 aside dl dd:last-child,
 aside dl dt:last-of-type { border-bottom: none; }
 
-/* ── Styles the arrow for the collapsible section of athlete details────────────────── */
+/* Styles the arrow for the collapsible section of athlete details */
 details { margin-top: var(--sp-4); }
 
 details summary {
@@ -376,7 +376,7 @@ details > p {
   border-radius: var(--radius-sm);
 }
 
-/* ── SEARCH & FILTER ────────────────────────────────────── */
+/* SEARCH & FILTER */
 fieldset {
   border: none; padding: 0; margin: 0;
   display: flex; flex-wrap: wrap;
@@ -447,7 +447,7 @@ button[type="submit"] {
 
 
 
-/* ── RACE CARDS ─────────────────────────────────────────── */
+/* RACE CARDS */
 section[aria-labelledby="race-cards"] ol {
   list-style: none; padding: 0; margin: 0;
   display: grid;
@@ -580,7 +580,7 @@ section[aria-labelledby="race-cards"] details details summary {
   color: var(--color-link);
 }
 
-/* ── COMMENTS PANEL ─────────────────────────────────────── */
+/* COMMENTS PANEL */
 #comments-panel > p {
   font-size: 0.875rem; color: var(--color-text-muted);
   margin-bottom: var(--sp-4);
@@ -616,7 +616,7 @@ section[aria-labelledby="race-cards"] details details summary {
   margin: var(--sp-2) 0 0;
 }
 
-/* ── FOOTER ─────────────────────────────────────────────── */
+/* FOOTER */
 footer {
   text-align: center;
   padding: var(--sp-8) var(--sp-4);
@@ -627,7 +627,7 @@ footer {
 
 footer p { margin: 0 0 var(--sp-1); }
 
-/* ── Focus and Scrollbar ───────────────────────────────────── */
+/* Focus and Scrollbar */
 :focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
@@ -638,7 +638,7 @@ footer p { margin: 0 0 var(--sp-1); }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 99px; }
 
-/* ── Reduced motion media query ─────────────────────────────────────── */
+/* Reduced motion media query */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -649,7 +649,7 @@ footer p { margin: 0 0 var(--sp-1); }
   body::before { background: var(--color-accent); }
 }
 
-/* ── print ──────────────────────────────────────────────── */
+/* print */
 @media print {
   body { background: #fff; color: #000; }
   .skip-link { display: none; }
