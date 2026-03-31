@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="reset.css">
   <title>Garrett Comer — Race Results</title>
 
   <!-- shared CSS reset for ALL pages in this project
@@ -55,7 +55,7 @@
         <h3 id="athlete-profile">Athlete profile</h3>
 
         <!-- athlete photo or placeholder -->
-        <img src="images/Cover Photo.jpg" alt=" Photo of Garrett Comer" width="180" height="200" />
+        <img src="images/Cover Photo.jpg" alt="Garrett Comer" width="180" height="200" />
 
         <!-- key stats: these stay visible as context while scrolling race data -->
         <dl>
@@ -72,51 +72,7 @@
         <p>
           <a href="https://www.athletic.net/athlete/21615274/cross-country/">View athlete page</a>
         </p>
-
-        <!-- progressive disclosure for extra bio/context -->
-        <details>
-          <summary>More athlete details</summary>
-          <p>{{AthleteBio}}</p>
-        </details>
       </aside>
-
-      <!-- controls for searching/filtering athlete’s race cards-->
-      <section aria-labelledby="race-controls">
-        <h3 id="race-controls">Search &amp; filter races</h3>
-
-        <form action="#" method="get">
-          <fieldset>
-            <legend>Race controls</legend>
-
-            <div>
-              <!-- search within visible race cards -->
-              <label for="race-search">Search races</label>
-              <input
-                type="search"
-                id="race-search"
-                name="race_q"
-                placeholder="Type to filter race cards…"
-                autocomplete="off"
-              />
-            </div>
-
-            <div>
-              <!-- filter by season/year or specific races from spreadsheet -->
-              <label for="race-filter">Filter</label>
-              <select id="race-filter" name="race_filter">
-                <option value="all" selected>All races</option>
-                <option value="season">2025</option>
-                <option value="season">2024</option>
-                <option value="season">2023</option>
-                <!-- optional: specific race filters (e.g., “Conference”, “Regionals”) -->
-                {{RACE_FILTER_OPTIONS}}
-              </select>
-            </div>
-
-            <button type="submit">Apply</button>
-          </fieldset>
-        </form>
-      </section>
 
       <!-- race cards list: one card per race, most recent first -->
       <section aria-labelledby="race-cards">
@@ -149,18 +105,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/260748/results/1070073" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -187,18 +132,6 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/256268/results/1049223" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -209,7 +142,7 @@
                 <p><time datetime="2025-10-16">Oct 16 2025</time></p>
               </header>
           
-              <img src="images/2025 SEC-HS Championship (Varsity RED) .jpg" alt="Race photo from SEC-HS Championship (Varsity RED) g" width="320" height="180" loading="lazy" />
+              <img src="images/2025 SEC-HS Championship (Varsity RED) .jpg" alt="SEC-HS Championship (Varsity RED) g" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -225,18 +158,6 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/255545/results/1045133" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -247,7 +168,7 @@
                 <p><time datetime="2025-10-10">Oct 10 2025</time></p>
               </header>
           
-              <img src="images/2025 20th River Rat Open _ Regional Preview (All Boys).jpg" alt="Race photo from 20th River Rat Open / Regional Preview (All Boys)" width="320" height="180" loading="lazy" />
+              <img src="images/2025 20th River Rat Open _ Regional Preview (All Boys).jpg" alt="20th River Rat Open / Regional Preview (All Boys)" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -263,18 +184,6 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/253288/results/1037687" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -285,7 +194,7 @@
                 <p><time datetime="2025-10-04">Oct 4 2025</time></p>
               </header>
           
-              <img src="images/2025 Portage Invitational (Division 1).jpg" alt="Race photo from 2025 Portage Invitational (Division 1)" width="320" height="180" loading="lazy" />
+              <img src="images/2025 Portage Invitational (Division 1).jpg" alt="2025 Portage Invitational (Division 1)" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -301,18 +210,6 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/256147/results/1048648" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -323,7 +220,7 @@
                 <p><time datetime="2025-09-27">Sep 27 2025</time></p>
               </header>
           
-              <img src="images/2025 DeWitt Cross Country Invitational (Boys Varsity Division 1 and 2).jpg" alt="Race photo from DeWitt Cross Country Invitational (Boys Varsity (Elite))" width="320" height="180" loading="lazy" />
+              <img src="images/2025 DeWitt Cross Country Invitational (Boys Varsity Division 1 and 2).jpg" alt="DeWitt Cross Country Invitational (Boys Varsity (Elite))" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -339,18 +236,6 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/253848/results/1041153" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -361,7 +246,7 @@
                 <p><time datetime="2025-09-25">Sep 25 2025</time></p>
               </header>
           
-              <img src="images/2025 SEC-HS Jamboree 2 (Red) (Varsity Boys (Top 10)).jpg" alt="Race photo from SEC-HS Jamboree 2 (Red) (Varsity Boys (Top 10))" width="320" height="180" loading="lazy" />
+              <img src="images/2025 SEC-HS Jamboree 2 (Red) (Varsity Boys (Top 10)).jpg" alt="SEC-HS Jamboree 2 (Red) (Varsity Boys (Top 10))" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -378,17 +263,6 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/255560/results/1045227" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -415,18 +289,6 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/253327/results/1037946" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -437,7 +299,7 @@
                 <p><time datetime="2025-09-13">Sep 13 2025</time></p>
               </header>
           
-              <img src="images/2025 57th Annual Holly-Duane Raffin Festival of Races (D1 Boys).jpg" alt="Race photo from 57th Annual Holly-Duane Raffin Festival of Races (Varsity Boys)" width="320" height="180" loading="lazy" />
+              <img src="images/2025 57th Annual Holly-Duane Raffin Festival of Races (D1 Boys).jpg" alt="57th Annual Holly-Duane Raffin Festival of Races (Varsity Boys)" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -454,17 +316,6 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/254494/results/1042115" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -475,7 +326,7 @@
                 <p><time datetime="2025-09-09">Sep 9 2025</time></p>
               </header>
           
-              <img src="images/2025         SEC-HS Jamboree 1 (Red_White Varsity Boys).jpg" alt="Race photo from SEC-HS Jamboree 1 (Red/White Varsity Boys)" width="320" height="180" loading="lazy" />
+              <img src="images/2025         SEC-HS Jamboree 1 (Red_White Varsity Boys).jpg" alt="SEC-HS Jamboree 1 (Red/White Varsity Boys)" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -491,18 +342,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/255690/results/1046738" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -513,7 +353,7 @@
                 <p><time datetime="2025-08-27">Aug 27 2025</time></p>
               </header>
           
-              <img src="images/2025 2nd Ann Arbor City Preview presented by AARC.jpg" alt="Race photo from 2nd Ann Arbor City Preview presented by AARC" width="320" height="180" loading="lazy" />
+              <img src="images/2025 2nd Ann Arbor City Preview presented by AARC.jpg" alt="2nd Ann Arbor City Preview presented by AARC" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -530,17 +370,7 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/253193/results/1037068" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -551,7 +381,7 @@
                 <p><time datetime="2025-08-15">Aug 15 2025</time></p>
               </header>
           
-              <img src="images/2025 Lamplighter.JPG" alt="Race photo from Lamplighter Invitational" width="320" height="180" loading="lazy" />
+              <img src="images/2025 Lamplighter.JPG" alt="Lamplighter Invitational" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -567,18 +397,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/247194/results/1007644" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -589,7 +408,7 @@
                 <p><time datetime="2024-10-26">Oct 26 2024</time></p>
               </header>
           
-              <img src="images/2024 Region 4-1 & 16-2 PROM Races.jpg" alt="Race photo from 2024 Region 4-1 & 16-2 PROM" width="320" height="180" loading="lazy" />
+              <img src="images/2024 Region 4-1 & 16-2 PROM Races.jpg" alt="2024 Region 4-1 & 16-2 PROM" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -606,17 +425,7 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/251542/results/1031854" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -643,18 +452,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/238020/results/1024310" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -682,17 +480,6 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/235414/results/1003573" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -719,18 +506,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/237770/results/1019178" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -741,7 +517,7 @@
                 <p><time datetime="2024-08-29">Aug 29 2024</time></p>
               </header>
           
-              <img src="images/2024 Early Bird Open.jpg" alt="Race photo from 37th Early Bird Open (HS Open 5K)" width="320" height="180" loading="lazy" />
+              <img src="images/2024 Early Bird Open.jpg" alt="37th Early Bird Open (HS Open 5K)" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -758,17 +534,7 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/235906/results/1005208" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -779,7 +545,7 @@
                 <p><time datetime="2023-10-28">Oct 28 2023</time></p>
               </header>
           
-              <img src="images/2023 Post Regional Open Meet (PROM) - Springfiled Oaks.jpg" alt="Race photo from Post Regional Open Meet (PROM) - Springfiled Oaks" width="320" height="180" loading="lazy" />
+              <img src="images/2023 Post Regional Open Meet (PROM) - Springfiled Oaks.jpg" alt="Post Regional Open Meet (PROM) - Springfiled Oaks" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -796,17 +562,7 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/229459/results/980113" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -817,7 +573,7 @@
                 <p><time datetime="2023-10-19">Oct 19 2023</time></p>
               </header>
           
-              <img src="images/2023 SEC HS Championship (All Division Reserve).jpg" alt="Race photo from SEC HS Championship (All Division Reserve)" width="320" height="180" loading="lazy" />
+              <img src="images/2023 SEC HS Championship (All Division Reserve).jpg" alt="SEC HS Championship (All Division Reserve)" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -833,18 +589,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/221711/results/965329" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -872,17 +617,7 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/221693/results/965235" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -909,18 +644,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/221741/results/965512" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -947,18 +671,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/222338/results/969780" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -986,17 +699,7 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/221679/results/965159" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+
             </article>
           </li>
           
@@ -1024,17 +727,6 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/221711/results/965304" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
           </li>
           
@@ -1045,7 +737,7 @@
                 <p><time datetime="2023-09-09">Sep 9 2023</time></p>
               </header>
           
-              <img src="images/2023 Bret Clements Bath Invitational.jpg" alt="Race photo from 2023 Bret Clements Bath Invitational" width="320" height="180" loading="lazy" />
+              <img src="images/2023 Bret Clements Bath Invitational.jpg" alt="2023 Bret Clements Bath Invitational" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -1061,18 +753,7 @@
               <p>
                 <a href="https://www.athletic.net/CrossCountry/meet/221303/results/963632" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
-          
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
+ 
             </article>
           </li>
           
@@ -1083,7 +764,7 @@
                 <p><time datetime="2023-08-31">Aug 31 2023</time></p>
               </header>
           
-              <img src="images/2023 Early Bird Open.jpg" alt="Race photo from Early Bird Open (Open Men's 5K)" width="320" height="180" loading="lazy" />
+              <img src="images/2023 Early Bird Open.jpg" alt="Early Bird Open (Open Men's 5K)" width="320" height="180" loading="lazy" />
           
               <dl>
                 <dt>Overall place</dt>
@@ -1100,17 +781,6 @@
                 <a href="https://www.athletic.net/CrossCountry/meet/223771/results/972163" target="_blank" rel="noopener noreferrer">Meet Result (Athletic.net)</a>
               </p>
           
-              <details>
-                <summary>More details</summary>
-                <p><strong>Extra metadata:</strong> Not available</p>
-          
-                <details>
-                  <summary>Race gallery (collapsed)</summary>
-                  <p>JavaScript placeholder: race gallery thumbnails could expand here later.</p>
-                </details>
-          
-                <p><strong>Comments:</strong> JavaScript placeholder: open comments side panel for this race.</p>
-              </details>
             </article>
         </ol>
       </section>
@@ -1121,9 +791,10 @@
   <!-- shared footer, update the “Last updated” date when regenerating from data -->
   <footer>
     <p>Generated from requirements spreadsheet data.</p>
-    <p><small>Last updated: {{LastUpdatedDate}}</small></p>
+    <p><small>Last updated: 03/30/2025</small></p>
   </footer>
 
+  <!--Javascript element, this adds an event listener and it checks to see if the button has been clicked-->
   <script>
     const btn = document.getElementById('theme-toggle');
     btn.addEventListener('click', () => {

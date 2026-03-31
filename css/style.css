@@ -1,47 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;600&display=swap');
 
-/* Light mode — default, would these variables that help with toggling dark mode count as a technique not seen in class? */
+
 :root {
-  --color-bg:          #f4f5f8;
-  --color-surface:     #ffffff;
-  --color-surface-2:   #eef0f6;
-  --color-border:      #c8cfe0;
-  --color-accent:      #994f00;   
-  --color-accent-button: #f4f5f8;
-  --color-accent-glow: rgba(153,79,0,.12);
-  --color-text:        #0e1117;
-  --color-text-muted:  #3a3f52;   
-  --color-pr:          #145228;   
-  --color-link:        #1a3fa3;
-  --shadow-card:       0 2px 12px rgba(0,0,0,.08);
-  --shadow-glow:       0 0 20px rgba(184,106,0,.15);
+  /* Colour palette */
+  --color-bg:          #f4f5f8;   /* page background */
+  --color-surface:     #ffffff;   /* cards, header, panels */
+  --color-surface-2:   #eef0f6;   /* inset areas inside cards (dl rows, stats) */
+  --color-border:      #c8cfe0;   /* all borders and dividers */
+  --color-accent:      #994f00;   /* burnt orange — primary brand colour */
+  --color-accent-button: #f4f5f8; /* light mode button fill (matches bg) */
+  --color-accent-glow: rgba(153,79,0,.12); /* semi-transparent accent for focus rings */
+  --color-text:        #0e1117;   /* primary body text */
+  --color-text-muted:  #3a3f52;   /* secondary/label text */
+  --color-pr:          #145228;   /* green used for PR/SR values in the profile */
+  --color-link:        #1a3fa3;   /* standard link colour */
+  --shadow-card:       0 2px 12px rgba(0,0,0,.08);  /* subtle card drop shadow */
+  --shadow-glow:       0 0 20px rgba(184,106,0,.15); /* warm glow on accent elements */
+
   --font-display: 'Bebas Neue', 'Impact', condensed, sans-serif;
   --font-body:    'DM Sans', 'Segoe UI', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Fira Mono', 'Courier New', monospace;
+
+  /* Spacing scale in rem — used everywhere instead of raw px values
+     so spacing scales proportionally if the root font size changes */
   --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
   --sp-6: 1.5rem;  --sp-8: 2rem;   --sp-12: 3rem;
+
+  /* Border radius scale */
   --radius-sm: 4px; --radius: 8px; --radius-lg: 16px;
-  --ease: cubic-bezier(.4,0,.2,1);
+
+  /* Animation easing and duration tokens */
+  --ease: cubic-bezier(.4,0,.2,1); /* "standard" material easing */
   --dur-fast: 160ms; --dur-normal: 280ms; --dur-slow: 500ms;
 }
 
-/* Dark mode, changes when button is pushed */
+
 body.dark {
   --color-bg:          #0d0f14;
   --color-surface:     #161a24;
   --color-surface-2:   #1e2330;
   --color-border:      #2a3045;
-  --color-accent:      #f5a623;
+  --color-accent:      #f5a623;   
   --color-accent-button: #f5a623;
   --color-accent-glow: rgba(245,166,35,.18);
   --color-text:        #eceef5;
   --color-text-muted:  #c8d0e8;
-  --color-pr:          #4ade80;
-  --color-link:        #93c5fd;
+  --color-pr:          #4ade80;  
+  --color-link:        #93c5fd;   
   --shadow-card:       0 2px 16px rgba(0,0,0,.5);
   --shadow-glow:       0 0 24px rgba(245,166,35,.25);
 }
 
+
+/*
+   THEME TOGGLE BUTTON
+   Looks like a small bordered pill that fits in the
+   header without drawing too much attention. The border lights
+   up on hover
+*/
 #theme-toggle {
   color: var(--color-text);
   background: none;
@@ -57,17 +73,23 @@ body.dark {
 
 
 
-/* BASE  */
+/* Apply border-box to everything so padding and borders are
+   included in an element's declared width/height, not added on
+   top of it. Prevents unexpected overflow. */
 *, *::before, *::after { box-sizing: border-box; }
 
-/* ── for number 1: base font size set in rem,
-63   scroll behavior smooth for mobile. */
+/* Root font size: --radius-lg resolves to 16px, which sets 1rem = 16px.
+   scroll-behavior: smooth makes anchor links animate instead of jump.
+   -webkit-text-size-adjust stops iOS from auto-inflating text in landscape. */
 html {
   font-size: var(--radius-lg);
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
+/* Page background, text colour, font, and minimum height.
+   The radial-gradient adds a glow at the top of the
+   page behind the header */
 body {
   background-color: var(--color-bg);
   background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,166,35,.07), transparent);
@@ -76,10 +98,13 @@ body {
   font-size: var(--sp-4);
   line-height: 1.6;
   margin: 0;
-  min-height: 100dvh;
+  min-height: 100dvh; /* accounts for mobile browser chrome */
 }
 
-/* lane-stripe bar pinned to the top */
+/* Decorative lane-stripe bar fixed to the very top of the viewport.
+   Uses a pseudo-element so no extra HTML element is needed.
+   repeating-linear-gradient creates the dashed lane-marker pattern.
+   z-index: 1000 keeps it above the sticky header (z-index: 500). */
 body::before {
   content: '';
   display: block;
@@ -90,12 +115,15 @@ body::before {
   z-index: 1000;
 }
 
-
+/* Make all images block-level and fill their container width by default. height: auto
+   preserves the natural aspect ratio. */
 img { width: 100%; height: auto; display: block; }
 
+/* Tighten heading line-height */
 h1, h2, h3, h4 { line-height: 1.15; margin: 0 0 var(--sp-4); }
 
-/*when links are tapped, the color and opacity fade*/
+/* Remove underline from links and set the link colour. The
+   transition animates colour and opacity changes */
 a {
   color: var(--color-link);
   text-decoration: none;
@@ -103,9 +131,14 @@ a {
 }
 
 
-/*SHARED CARD SURFACE */
-/* The profile aside, search panel, and comments panel all share
-   the same card treatment — defined once here. */
+/* 
+   SHARED CARD SURFACE
+   The athlete profile aside and the race-cards section both
+   use the same visual "card" style — white surface, border,
+   rounded corners, and a drop shadow. Defined once here and
+   applied to both via a grouped selector instead of repeating
+   the same rules in each component.
+*/
 aside[aria-labelledby="athlete-profile"],
 section[aria-labelledby="race-controls"],
 #comments-panel {
@@ -116,8 +149,13 @@ section[aria-labelledby="race-controls"],
   box-shadow: var(--shadow-card);
 }
 
-/* SHARED PANEL HEADINGS (h3) */
-/* All four panel h3s share display font, uppercase, accent color. */
+
+/* 
+   SHARED PANEL HEADINGS (h3)
+   Every panel's h3 uses the display font, uppercase, and the
+   accent colour. The two size variants below split them into
+   "large" (profile + race cards) and "small" (controls + comments).
+    */
 aside[aria-labelledby="athlete-profile"] h3,
 section[aria-labelledby="race-controls"] h3,
 section[aria-labelledby="race-cards"] h3,
@@ -135,8 +173,14 @@ section[aria-labelledby="race-cards"] h3 { font-size: 1.4rem; }
 section[aria-labelledby="race-controls"] h3,
 #comments-panel h3 { font-size: 1.25rem; }
 
-/* SHARED PILL BUTTON*/
-/* Used for the "View athlete page" CTA and each "Meet Result" link. */
+
+/* 
+   SHARED PILL BUTTON
+   Both the "View athlete page" link in the aside and the
+   "Meet Result" links on each race card share this pill style:
+   small caps, accent-coloured border, and a filled background
+   on :active. Using a grouped selector keeps them in sync.
+ */
 aside > p > a,
 section[aria-labelledby="race-cards"] article > p > a {
   display: inline-flex;
@@ -156,6 +200,8 @@ section[aria-labelledby="race-cards"] article > p > a {
               color var(--dur-fast) var(--ease);
 }
 
+/* On tap/click: fill the button with the accent colour and
+   flip the text to black for contrast. */
 aside > p > a:active,
 section[aria-labelledby="race-cards"] article > p > a:active {
   background: var(--color-accent);
@@ -163,7 +209,14 @@ section[aria-labelledby="race-cards"] article > p > a:active {
   text-decoration: none;
 }
 
-/* SKIP LINK */
+
+/*
+   SKIP LINK
+   Hidden off-screen by default (top: -100%). Only becomes
+   visible when it receives keyboard focus, letting keyboard
+   users jump straight to <main> and bypass the repeated header.
+   z-index: 9999 keeps it above everything else when visible.
+ */
 .skip-link {
   position: absolute;
   top: -100%;
@@ -174,31 +227,43 @@ section[aria-labelledby="race-cards"] article > p > a:active {
   padding: var(--sp-2) var(--sp-6);
   border-radius: 0 0 8px 8px;
   z-index: 9999;
-  transition: top var(--dur-fast);
+  transition: top var(--dur-fast)
 }
-.skip-link:focus { top: 0; }
+.skip-link:focus { top: 0; } /* slides down into view on focus */
 
-/* HEADER, sticky for number 4*/
+
+/* 
+   HEADER
+   Sticky so it stays visible while scrolling.
+   clamp() on padding gives it breathing room on large screens
+   while staying compact on mobile — no media query needed.
+   The extra 4px top padding accounts for the lane-stripe
+   pseudo-element fixed above it.
+   backdrop-filter blurs whatever scrolls behind the header
+   for a frosted-glass effect.
+    */
 header {
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-  /* clamp() used for mobile-first */
   padding: clamp(var(--sp-4), 3vw, var(--sp-6)) clamp(var(--sp-4), 5vw, var(--sp-12));
   padding-top: calc(clamp(var(--sp-4), 3vw, var(--sp-6)) + 4px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* wraps to a second row on very small screens */
   gap: var(--sp-3);
-  position: sticky; 
+  position: sticky;
   top: 0;
   z-index: 500;
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); 
 }
 
+/* The logo + school name group inside the header */
 header > div { display: flex; align-items: center; gap: var(--sp-3); }
 
+/* School logo: forced to a small fixed square, cropped to a
+   circle, with an accent-coloured ring border. */
 header > div img {
   width: 40px; height: 40px;
   border-radius: 50%;
@@ -206,7 +271,7 @@ header > div img {
   border: 2px solid var(--color-accent);
 }
 
-
+/* "Ann Arbor Skyline HS • Season 2025" subtitle text */
 header > div p {
   font-size: clamp(0.7rem, 2.5vw, 0.85rem);
   color: var(--color-text-muted);
@@ -215,7 +280,8 @@ header > div p {
   text-transform: uppercase;
 }
 
-/*animation: slides the header from the left to the right when page loads */
+/* Athlete name — the largest text on the page.
+   Animates in from the left on page load using slide-right. */
 header h1 {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 10vw, 4.5rem);
@@ -227,17 +293,22 @@ header h1 {
   animation: slide-right var(--dur-slow) var(--ease) 120ms both;
 }
 
+/* Slides h1 in from slightly left and fades it in on load.
+   "both" fill-mode means it starts in the from state before
+   the 120ms delay fires. */
 @keyframes slide-right {
   from { transform: translateX(-24px); opacity: 0; }
   to   { transform: translateX(0); opacity: 1; }
 }
 
+/* Nav list: horizontal row of links, wraps on small screens */
 header nav ul {
   list-style: none; margin: 0; padding: 0;
   display: flex; flex-wrap: wrap; gap: var(--sp-2);
 }
 
-/*border, text, background change to accent color when nav links are tapped */
+/* Each nav link is styled as a small bordered pill.
+   Transitions animate colour, border, and background on state change. */
 header nav a {
   display: inline-block;
   font-size: 0.8rem; font-weight: 600;
@@ -251,6 +322,10 @@ header nav a {
               background var(--dur-fast) var(--ease);
 }
 
+/* Active state (tap) and aria-current="page" (current page indicator)
+   share the same highlighted style. aria-current is set in the HTML
+   and also used here as a CSS hook so there's a single source of
+   truth — no separate .active class to keep in sync. */
 header nav a:active,
 header nav a[aria-current="page"] {
   border-color: var(--color-accent);
@@ -259,10 +334,18 @@ header nav a[aria-current="page"] {
   text-decoration: none;
 }
 
-/* MAIN LAYOUT */
+
+/* 
+   MAIN LAYOUT
+    */
+
+/* Horizontal padding and auto-centering for the main content area */
 main { padding: var(--sp-6) var(--sp-4); margin: 0 auto; }
 
-/* column grid */
+/* Single-column grid by default (mobile-first).
+   Responsive layout adjustments live in responsive.css.
+   align-items: start prevents the shorter column from
+   stretching to match the taller one. */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -270,6 +353,10 @@ main { padding: var(--sp-6) var(--sp-4); margin: 0 auto; }
   align-items: start;
 }
 
+/* Section-level heading (h2).
+   The ::after pseudo-element adds a short accent-coloured
+   underline on top of the full-width border-bottom, creating
+   a two-tone divider effect. */
 h2 {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 6vw, 3rem);
@@ -277,7 +364,7 @@ h2 {
   color: var(--color-text);
   padding-bottom: var(--sp-3);
   border-bottom: 2px solid var(--color-border);
-  position: relative;
+  position: relative; /* needed to position ::after */
 }
 
 h2::after {
@@ -285,12 +372,17 @@ h2::after {
   position: absolute;
   bottom: -2px; left: 0;
   width: 60px; height: 2px;
-  background: var(--color-accent);
+  background: var(--color-accent); /* short accent bar overlaid on the border */
 }
 
 
-/* athlete profile, slides it up during page load */
-aside[aria-labelledby="athlete-profile"] { 
+/* 
+   ATHLETE PROFILE ASIDE
+    */
+
+/* Fades in and slides up from slightly below on page load.
+   200ms delay lets the h1 animation start first. */
+aside[aria-labelledby="athlete-profile"] {
   animation: fade-up var(--dur-slow) var(--ease) 200ms both;
 }
 
@@ -299,7 +391,8 @@ aside[aria-labelledby="athlete-profile"] {
   to   { transform: translateY(0); opacity: 1; }
 }
 
-/* This is for number 8: Image Optimization along*/
+/* Athlete headshot: fixed square, cropped to a circle.
+   auto margins centre it horizontally within the aside. */
 aside[aria-labelledby="athlete-profile"] > img {
   width: 120px; height: 120px;
   border-radius: 50%;
@@ -309,7 +402,10 @@ aside[aria-labelledby="athlete-profile"] > img {
   margin: 0 auto var(--sp-6);
 }
 
-/* Profile dl — 2-column: label | value */
+/* Profile stats table (Grade / SR / PR).
+   Two-column grid: label on the left, value on the right.
+   gap: 0 keeps rows flush so the background stripes read as
+   a continuous table. overflow: hidden clips the border-radius. */
 aside dl {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -319,7 +415,8 @@ aside dl {
   overflow: hidden;
 }
 
-/* Shared padding + background for both dt and dd */
+/* Both dt and dd share the same surface colour and bottom border
+   so each row has a consistent stripe. */
 aside dl dt,
 aside dl dd {
   padding: var(--sp-2) var(--sp-3);
@@ -328,12 +425,14 @@ aside dl dd {
   font-size: 0.875rem;
 }
 
+/* dt = label column: muted colour, left accent border as a visual marker */
 aside dl dt {
   color: var(--color-text-muted);
   font-weight: 400;
   border-left: 3px solid var(--color-border);
 }
 
+/* dd = value column: monospace font, green PR colour, right-aligned */
 aside dl dd {
   font-family: var(--font-mono);
   font-weight: 600;
@@ -342,112 +441,19 @@ aside dl dd {
   text-align: right;
 }
 
+/* Remove the bottom border from the last row so it doesn't
+   double up with the container's rounded corner. */
 aside dl dd:last-child,
 aside dl dt:last-of-type { border-bottom: none; }
 
-/* Styles the arrow for the collapsible section of athlete details */
-details { margin-top: var(--sp-4); }
+/* 
+   RACE CARDS
+    */
 
-details summary {
-  cursor: pointer;
-  font-size: 0.8rem; font-weight: 600;
-  letter-spacing: .05em; text-transform: uppercase;
-  color: var(--color-text-muted);
-  user-select: none; list-style: none;
-  display: flex; align-items: center; gap: var(--sp-2);
-  transition: color var(--dur-fast) var(--ease);
-}
-
-/* Rotates the arrow 90 degrees after more athlete details open */
-details summary::before {
-  content: '▶';
-  font-size: 0.6rem;
-  transition: transform var(--dur-fast) var(--ease);
-}
-
-details[open] summary::before { transform: rotate(90deg); }
-
-details > p {
-  margin-top: var(--sp-3);
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
-  padding: var(--sp-3);
-  background: var(--color-surface-2);
-  border-radius: var(--radius-sm);
-}
-
-/* SEARCH & FILTER */
-fieldset {
-  border: none; padding: 0; margin: 0;
-  display: flex; flex-wrap: wrap;
-  gap: var(--sp-4); align-items: flex-end;
-}
-
-fieldset > div { flex: 1 1 160px; }
-
-legend {
-  position: absolute;
-  width: 1px; height: 1px;
-  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
-}
-
-label {
-  display: block;
-  font-size: var(--sp-3); font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin-bottom: var(--sp-1);
-}
-
-/* Shared styles for both form inputs */
-input[type="search"],
-select {
-  width: 100%;
-  background: var(--color-surface-2);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  font-size: var(--sp-4);
-  padding: var(--sp-3) var(--sp-4);
-  appearance: none;
-  -webkit-appearance: none;
-  transition: border-color var(--dur-fast) var(--ease),
-              box-shadow var(--dur-fast) var(--ease);
-}
-
-input[type="search"]:focus,
-select:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-glow);
-}
-
-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a8b0c8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right var(--sp-4) center;
-  padding-right: var(--sp-8);
-  cursor: pointer;
-}
-
-button[type="submit"] {
-  background: var(--color-accent-button);
-  color: #000;
-  font-family: var(--font-body);
-  font-size: 0.875rem; font-weight: 700;
-  letter-spacing: .06em; text-transform: uppercase;
-  padding: var(--sp-3) var(--sp-6);
-  border: none; border-radius: var(--radius);
-  cursor: pointer; flex-shrink: 0;
-  transition: background var(--dur-fast) var(--ease),
-              transform var(--dur-fast) var(--ease),
-              box-shadow var(--dur-fast) var(--ease);
-}
-
-
-
-/* RACE CARDS */
+/* The ol holding all race cards.
+   counter-reset starts the CSS counter used for the #N badges.
+   isolation: isolate creates a new stacking context so the
+   cards' z-index values don't interfere with the header. */
 section[aria-labelledby="race-cards"] ol {
   list-style: none; padding: 0; margin: 0;
   display: grid;
@@ -457,8 +463,13 @@ section[aria-labelledby="race-cards"] ol {
   isolation: isolate;
 }
 
+/* Each li increments the counter for the decorative badge */
 section[aria-labelledby="race-cards"] li { counter-increment: race-counter; }
 
+/* Individual race card: white surface, border, shadow.
+   position: relative is needed for the ::before badge.
+   overflow: hidden clips any content that bleeds outside
+   the rounded corners. */
 section[aria-labelledby="race-cards"] article {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -472,15 +483,17 @@ section[aria-labelledby="race-cards"] article {
               border-color var(--dur-normal) var(--ease);
 }
 
-/*A couple of these, but these are for number 5 hover effects, where when the button*/
-/*is clicked, the button will light up*/
-section[aria-labelledby="race-cards"] article:active { 
+/* On tap: card lifts slightly (translateY), shadow deepens,
+   and the border switches to accent colour. */
+section[aria-labelledby="race-cards"] article:active {
   transform: translateY(-3px);
   box-shadow: 0 8px 32px rgba(0,0,0,.5), var(--shadow-glow);
   border-color: var(--color-accent);
 }
 
-/* Decorative #N badge */
+/* Decorative "#N" badge in the top-right corner of each card.
+   Uses the CSS counter value — purely visual, no semantic meaning.
+   Very low opacity so it reads as a watermark, not content. */
 section[aria-labelledby="race-cards"] article::before {
   content: '#' counter(race-counter);
   position: absolute;
@@ -491,8 +504,10 @@ section[aria-labelledby="race-cards"] article::before {
   color: rgba(160,168,192,0.4);
 }
 
+/* Space below the card's inner header before the image */
 section[aria-labelledby="race-cards"] article > header { margin-bottom: var(--sp-4); }
 
+/* Race name: display font, all-caps */
 section[aria-labelledby="race-cards"] article > header h4 {
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 4vw, 1.5rem);
@@ -501,12 +516,18 @@ section[aria-labelledby="race-cards"] article > header h4 {
   margin-bottom: var(--sp-1);
 }
 
+/* Date paragraph beneath the race name */
 section[aria-labelledby="race-cards"] article > header p {
   font-size: 0.8rem; color: var(--color-text-muted); margin: 0;
 }
 
+/* <time> element inside the date paragraph: monospace so
+   the date characters align optically */
 section[aria-labelledby="race-cards"] article > header time { font-family: var(--font-mono); }
 
+/* Race photo: fixed 16:9 aspect ratio, cropped to fill.
+   This means all photos are the same height regardless of
+   their original dimensions. */
 section[aria-labelledby="race-cards"] article img {
   border-radius: var(--radius);
   margin-bottom: var(--sp-4);
@@ -514,16 +535,20 @@ section[aria-labelledby="race-cards"] article img {
   object-fit: cover;
 }
 
-@keyframes card-enter { /*animation for the race cards, the cards are loaded in a staggered manner*/
+/* Card entrance animation — cards fade in and slide up */
+@keyframes card-enter {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Apply the entrance animation to every li (which wraps each card) */
 section[aria-labelledby="race-cards"] li {
   animation: card-enter var(--dur-normal) var(--ease) both;
 }
 
-/* Stagger each card by 60ms using nth-child */
+/* Stagger each card's entrance by 60ms so they cascade in
+   one by one rather than all appearing simultaneously.
+   Cards 7 and beyond all share the same 360ms delay. */
 section[aria-labelledby="race-cards"] li:nth-child(1)  { animation-delay: 0ms; }
 section[aria-labelledby="race-cards"] li:nth-child(2)  { animation-delay: 60ms; }
 section[aria-labelledby="race-cards"] li:nth-child(3)  { animation-delay: 120ms; }
@@ -532,7 +557,10 @@ section[aria-labelledby="race-cards"] li:nth-child(5)  { animation-delay: 240ms;
 section[aria-labelledby="race-cards"] li:nth-child(6)  { animation-delay: 300ms; }
 section[aria-labelledby="race-cards"] li:nth-child(n+7) { animation-delay: 360ms; }
 
-/* Stats dl — 3-column tile layout (Overall / Grade / Time) */
+/* Stats row (Overall place / Grade / Time).
+   3-column grid where dt and dd are placed in separate rows
+   (grid-row: 1 and 2 respectively) so each label sits directly
+   above its value, forming a tile layout. */
 section[aria-labelledby="race-cards"] dl {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -540,18 +568,23 @@ section[aria-labelledby="race-cards"] dl {
   margin-bottom: var(--sp-4);
 }
 
+/* Label row: small caps, muted colour.
+   border-bottom: none + the matching border-top: none on dd
+   below removes the double-border between label and value. */
 section[aria-labelledby="race-cards"] dl dt {
   grid-row: 1;
   font-size: 0.65rem; font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--color-text-muted);
   background: var(--color-surface-2);
-  border-radius: var(--radius-sm) 4px 0 0;
+  border-radius: var(--radius-sm) 4px 0 0; /* rounded top corners only */
   border: 1px solid var(--color-border);
   border-bottom: none;
   padding: var(--sp-2) var(--sp-2) 0;
 }
 
+/* Value row: large monospace number in accent colour.
+   Rounded bottom corners so each tile looks like a unified pill. */
 section[aria-labelledby="race-cards"] dl dd {
   grid-row: 2;
   font-family: var(--font-mono);
@@ -559,86 +592,63 @@ section[aria-labelledby="race-cards"] dl dd {
   color: var(--color-accent);
   margin: 0;
   background: var(--color-surface-2);
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px; /* rounded bottom corners only */
   border: 1px solid var(--color-border);
   border-top: none;
   padding: 0 var(--sp-2) var(--sp-2);
   text-align: center;
 }
 
-/* Nested details — race gallery placeholder */
-section[aria-labelledby="race-cards"] details details {
-  margin-top: var(--sp-3);
-  padding: var(--sp-3);
-  background: var(--color-bg);
-  border-radius: var(--radius-sm);
-  border: 1px dashed var(--color-border);
-}
-
-section[aria-labelledby="race-cards"] details details summary {
-  font-size: var(--sp-3);
-  color: var(--color-link);
-}
-
-/* COMMENTS PANEL */
-#comments-panel > p {
-  font-size: 0.875rem; color: var(--color-text-muted);
-  margin-bottom: var(--sp-4);
-}
-
-#comments-panel ul {
-  list-style: none; padding: 0; margin: 0;
-  display: grid; gap: var(--sp-3);
-}
-
-#comments-panel article {
-  background: var(--color-surface-2);
-  border-radius: var(--radius);
-  padding: var(--sp-4);
-  border-left: 3px solid var(--color-border);
-  transition: border-color var(--dur-fast) var(--ease);
-}
-
-#comments-panel article:active { border-left-color: var(--color-accent); }
-
-#comments-panel article header h4 {
-  font-size: 0.9rem; font-weight: 600;
-  color: var(--color-text); margin-bottom: var(--sp-1);
-}
-
-#comments-panel article header time {
-  font-family: var(--font-mono);
-  font-size: var(--sp-3); color: var(--color-text-muted);
-}
-
-#comments-panel article p {
-  font-size: 0.875rem; color: var(--color-text-muted);
-  margin: var(--sp-2) 0 0;
-}
-
-/* FOOTER */
+/* 
+   FOOTER
+   Simple centred footer. color: --color-text-muted was chosen
+   over a lighter value to meet WCAG AA contrast on the light
+   background.
+    */
 footer {
   text-align: center;
   padding: var(--sp-8) var(--sp-4);
   border-top: 1px solid var(--color-border);
-  color: var(--color-text-muted);   /* was text-faint — raised for WCAG AA */
+  color: var(--color-text-muted);
   font-size: 0.8rem;
 }
 
 footer p { margin: 0 0 var(--sp-1); }
 
-/* Focus and Scrollbar */
+
+/* 
+   FOCUS STYLES
+   :focus-visible only shows the outline when the element is
+   focused via keyboard (not mouse click), so keyboard users
+   get a clear indicator without the ring appearing on every
+   mouse click. Uses the accent colour for consistency.
+    */
 :focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
 
+
+/* 
+   CUSTOM SCROLLBAR (WebKit/Blink only — Chrome, Safari, Edge)
+   Slimmer and more subtle than the default browser scrollbar.
+   Firefox ignores these rules and uses its own scrollbar-width
+   property instead (not set here, so it uses the default).
+    */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 99px; }
 
-/* Reduced motion media query */
+
+/* 
+   REDUCED MOTION
+   Respects the user's OS-level "reduce motion" accessibility
+   setting. Collapses all animation and transition durations to
+   nearly zero so nothing moves. scroll-behavior: auto disables
+   smooth scrolling, which can cause motion sickness.
+   The lane stripe becomes a solid bar instead of animated.
+    */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -649,7 +659,15 @@ footer p { margin: 0 0 var(--sp-1); }
   body::before { background: var(--color-accent); }
 }
 
-/* print */
+
+/* 
+   PRINT STYLES
+   When the page is printed:
+   - Remove the coloured background (save ink, improve contrast)
+   - Hide the skip link (irrelevant on paper)
+   - Remove sticky positioning from the aside so it prints
+     inline with the rest of the content
+    */
 @media print {
   body { background: #fff; color: #000; }
   .skip-link { display: none; }
