@@ -677,6 +677,43 @@ section[aria-labelledby="race-cards"] dl dd {
 .hidden {
   display: none;
 }
+/* ── Filtered PR card highlight ── */
+article.filtered-pr {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent), var(--shadow-glow);
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-surface-2) 100%
+  );
+}
+
+/* Badge in the top-left corner (replaces the existing #N badge position) */
+article.filtered-pr::before {
+  content: '🏅 Best time';
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-1) var(--sp-2);
+}
+
+/* Make the race name pop on the best card */
+article.filtered-pr > header h4 {
+  color: var(--color-accent);
+}
+
+/* Make the time value stand out */
+article.filtered-pr dl dd {
+  color: var(--color-pr);
+}
 
 /* 
    FOOTER

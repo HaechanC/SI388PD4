@@ -812,41 +812,107 @@
 
   <!--Javascript element, this adds an event listener and it checks to see if the button has been clicked-->
   <script>
-    /* ── Theme toggle ── */
+    //  Theme toggle  //
     const btn = document.getElementById('theme-toggle');
+
+    // On page load, check if the user previously chose dark mode
+    // and apply it before anything renders to avoid a flash
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      btn.textContent = '☀️';
+    }
+
     btn.addEventListener('click', () => {
       document.body.classList.toggle('dark');
-      btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+      const isDark = document.body.classList.contains('dark');
+      btn.textContent = isDark ? '☀️' : '🌙';
+
+      // Save the user's choice so it persists across page refreshes
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
- 
-    /* ── Race filters (year + name) ──
-       Both filters run together every time either one changes.
-       A card is visible only when it passes BOTH checks:
-       - its year matches the selected year (or "all" is chosen)
-       - its race name contains the search string (case-insensitive) */
+
+    //  Race filters (year + name)  //
     const yearSelect = document.getElementById('year-select');
     const nameSearch = document.getElementById('name-search');
     const raceItems  = document.querySelectorAll('section[aria-labelledby="race-cards"] ol > li');
- 
+
+    //  Pace calculator 
+    function calcPace(timeStr, unit = 'km') {
+      const cleaned = timeStr.replace(/[^0-9:.]/g, '');
+      const [mins, secs] = cleaned.split(':').map(Number);
+      const totalSeconds = mins * 60 + secs;
+
+      const distance = unit === 'mile' ? 3.10686 : 5;
+      const paceSeconds = totalSeconds / distance;
+
+      const paceMins = Math.floor(paceSeconds / 60);
+      const paceSecs = Math.round(paceSeconds % 60).toString().padStart(2, '0');
+      return `${paceMins}:${paceSecs} /${unit}`;
+    }
+
     function applyFilters() {
       const selectedYear = yearSelect.value;
       const nameQuery    = nameSearch.value.trim().toLowerCase();
- 
+
+      let bestTime = Infinity;
+      let bestCard = null;
+
       raceItems.forEach(li => {
-        const time      = li.querySelector('time');
-        const year      = time ? time.getAttribute('datetime').slice(0, 4) : null;
-        const heading   = li.querySelector('h4');
-        const raceName  = heading ? heading.textContent.toLowerCase() : '';
- 
+        const time     = li.querySelector('time');
+        const year     = time ? time.getAttribute('datetime').slice(0, 4) : null;
+        const heading  = li.querySelector('h4');
+        const raceName = heading ? heading.textContent.toLowerCase() : '';
+
         const yearMatch = selectedYear === 'all' || year === selectedYear;
         const nameMatch = raceName.includes(nameQuery);
- 
-        li.classList.toggle('hidden', !(yearMatch && nameMatch));
+        const visible   = yearMatch && nameMatch;
+
+        li.classList.toggle('hidden', !visible);
+
+        // Clear any previous PR highlight on every card
+        li.querySelector('article').classList.remove('filtered-pr');
+
+        if (visible) {
+          // Find the Time <dd> by locating the <dt> that says "Time"
+          const dts = li.querySelectorAll('dl dt');
+          let timeText = null;
+          dts.forEach(dt => {
+            if (dt.textContent.trim() === 'Time') {
+              timeText = dt.nextElementSibling.textContent.trim();
+            }
+          });
+
+          if (timeText) {
+            // Parse time into total seconds for comparison
+            const cleaned = timeText.replace(/[^0-9:.]/g, '');
+            const [mins, secs] = cleaned.split(':').map(Number);
+            const totalSeconds = mins * 60 + secs;
+
+            if (totalSeconds < bestTime) {
+              bestTime = totalSeconds; 
+              bestCard = li;
+            }
+
+            let paceEl = li.querySelector('.calculated-pace');
+            if (!paceEl) {
+              paceEl = document.createElement('p');
+              paceEl.className = 'calculated-pace';
+              li.querySelector('article').appendChild(paceEl);
+            }
+            paceEl.textContent = `Pace: ${calcPace(timeText)} · ${calcPace(timeText, 'mile')}`;
+          }
+        }
       });
+
+      // Highlight the best card among the fitered results
+      if (bestCard) {
+        bestCard.querySelector('article').classList.add('filtered-pr');
+      }
     }
- 
+
     yearSelect.addEventListener('change', applyFilters);
     nameSearch.addEventListener('input', applyFilters);
+    applyFilters(); // run on page load
   </script>
 </body>
 </html>
